@@ -1,7 +1,9 @@
+## SMS API
 
-<!-- //mogo-db -->
+This is an SMS MANAGEMENT APPLICATION API.
+It is built with node, express and mongodb as the database engine.
 
-##steps for running this API
+## steps for running this API
 - [x] clone the repository
 - [x] cd to the SMSAPI directory
 - [x] setup the env to have a similar outlook to the .env.example
@@ -30,7 +32,9 @@ It models the following abstractions
 ## Endpoints
   
 **contacts**
--[x] /api/v1/contacts/   method:GET   Gets all contacts 
+
+
+/api/v1/contacts/   method:GET   Gets all contacts 
 
 /api/v1/contacts/:id  method:GET    Get a specific contact
 
