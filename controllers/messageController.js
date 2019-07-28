@@ -2,6 +2,8 @@ const MessageModel = require('../models/message');
 const ContactModel = require('../models/contact');
 
 module.exports = {
+
+    //send a message to a particular contact
     sendMessage: (req, res) => {
         let errors = {};
         if(!req.body.phone){ errors.phone = 'No receiver specified'}
@@ -27,6 +29,7 @@ module.exports = {
         });
     },
 
+    //gets all messages sent.
     getSentMessages: ( req, res) => {
         MessageModel.find({sender: req.decoded.contact_id})
         .populate('sender')
@@ -39,6 +42,7 @@ module.exports = {
     },
 
 
+    //gets a message send by its id.
     getSentMessage: (req, res) => {
         MessageModel.findOne({ message_id: req.params.id , sender: req.decoded.contact_id})
         .populate('sender')
@@ -51,6 +55,7 @@ module.exports = {
     },
 
 
+    //deletes a message from the database.
     deleteMessage: (req, res) => {
         MessageModel
         .deleteOne({ message_id: req.params.id }, 
@@ -61,6 +66,7 @@ module.exports = {
             });
     },
 
+    //gets all received messages.
     getReceivedMessages: (req, res) => {
         MessageModel.find({ phone: req.decoded.phone})
         .populate('sender')
@@ -72,6 +78,8 @@ module.exports = {
         })
         
     },
+
+    //gets a specific message received.
     getReceivedMessage: (req, res) => {
         MessageModel.findOne({message_id: req.params.id, phone: req.decoded.phone})
         .populate('sender')

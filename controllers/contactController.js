@@ -5,12 +5,16 @@ const Bcrypt = require('bcryptjs');
 
 
 module.exports = {
+    //get all contacts available
     getContacts: (req, res) => {
         ContactModel.find((err, contacts) => {
             if(err){ return res.status(400).json({ error: err});}
             res.status(200).json({ contacts });
         });
     },
+
+    //get a specific contact
+    // @param {id}
     getSpecificContact: (req, res) => {
         try{
             ContactModel.findById({ _id: req.params.id }, (err, contact) => {
@@ -22,6 +26,8 @@ module.exports = {
             res.status(400).json({ error: err });
         }
     },
+
+    //add a contact to the database
     addContact: async (req, res) => {
         let errors = {};
         if(!req.body.name){ errors.name = 'A name is required';}
@@ -41,6 +47,9 @@ module.exports = {
             res.status(500).json({error: err });
         }
     },
+
+    //login with your phone and password
+    //it enables you send messages.
     login: (req, res) => {
         let errors = { };
         if(!req.body.phone){ errors.phone = 'A phone number is required';}
@@ -60,6 +69,8 @@ module.exports = {
         })
         
     },
+
+    //deletes a specific contact from the database
     deleteContact: (req,res) => {
         ContactModel.deleteOne({ _id: req.params.id }, (err, contact) => {
             if(err){return res.status(400).json({ error: err });}
