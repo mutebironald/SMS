@@ -32,7 +32,6 @@ module.exports = {
         .populate('sender')
         .populate('receiver')
         .exec((err, messages) => {
-            console.log('we printing', MessageModel.findOne({sender: req.decoded.contact_id}))
             if(err){ return res.status(400).json({ error: err })}
             if(!messages){ return res.status(400).json({ error: 'You currently have not sent any messages yet.'})}
             return res.status(200).json({ messages })
@@ -53,17 +52,16 @@ module.exports = {
 
 
     deleteMessage: (req, res) => {
-        console.log( 'delete this');
-        MessageModel.deleteOne({ _id: req.params.id })
-        .populate('sender').populate('receiver').exec((err, message) => {
-            if(err){return res.status(400).json({ error: err })}
-            if(!message){ return res.status(404).json({ error: 'The message specified is not present'})}
-
-            return res.status(200).json({ message });
-        })
+        MessageModel
+        .deleteOne({ message_id: req.params.id }, 
+            (err, message) => { 
+                if(err){ res.status(500).json({ error: err}) }
+                if(!message){ return response.status(404).json({ error: 'No message' })}  
+                return res.status(200).json({ message: 'The message is now deleted', message: message })
+            });
     },
+
     getReceivedMessages: (req, res) => {
-        // console.log(req.decoded.phone, '???????', MessageModel.find({ phone: req.decoded.phone}))
         MessageModel.find({ phone: req.decoded.phone})
         .populate('sender')
         .populate('receiver')

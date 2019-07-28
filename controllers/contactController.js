@@ -53,7 +53,7 @@ module.exports = {
             const validPassword = contact.passwordVerification(req.body.password)            
             if(!validPassword){ res.status(400).json({ error: 'wrong password'});}
             const token = jwt.sign({
-                id: contact.contact_id,
+                id: contact._id,
                 phone: req.body.phone,
             }, config.secret, {expiresIn:7890000});
             res.status(200).json({token: token});  
@@ -61,13 +61,10 @@ module.exports = {
         
     },
     deleteContact: (req,res) => {
-        ContactModel.findOne({ _id: req.params.id }, function(err, contact){
+        ContactModel.deleteOne({ _id: req.params.id }, (err, contact) => {
             if(err){return res.status(400).json({ error: err });}
             if(!contact){ return res.status(400).json({ error: 'contact not found'});}
-            contact.remove({}, (err, result) => {
-                if(err){ return res.status(400).json({ error: err });}
-                res.status(200).json({ message: 'Contact successfully deleted'})
-            });
+            res.status(200).json({ message: 'Contact successfully deleted'})
         })
     }
 

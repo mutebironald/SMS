@@ -19,6 +19,13 @@ var ContactModelSchema = mongoose.Schema({
 
 ContactModelSchema.methods.passwordVerification = function(password){
     return Bcrypt.compareSync(password, this.password);
-  };
+};
+
+ContactModelSchema.pre('remove', async function(next) {
+  await MessageModel.deleteMany({ sender: this._id });
+  await MessageModel.updateMany({ receiver: this_id }, { receiver: null });
+  next();
+})
+
 
 module.exports =  mongoose.model('ContactModel', ContactModelSchema);

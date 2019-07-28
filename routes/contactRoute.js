@@ -4,8 +4,6 @@ const jwt  = require('jsonwebtoken');
 const config = require('../database');
 const contactController = require('../controllers/contactController');
 
-// var debug = require('debug')('express:router');
-
 
 contactRouter
     .get('/', contactController.getContacts);
@@ -40,10 +38,6 @@ contactRouter.use(function(req, res, next) {
     }
 });
 
-
-
-
-// debug(contactRouter)
 
 module.exports = contactRouter;
 
