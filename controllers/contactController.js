@@ -51,6 +51,7 @@ module.exports = {
     //login with your phone and password
     //it enables you send messages.
     login: (req, res) => {
+        console.log(req.body,'the point of the request source')
         let errors = { };
         if(!req.body.phone){ errors.phone = 'A phone number is required';}
         if(!req.body.password){ errors.password = 'A password is required';}
@@ -59,7 +60,7 @@ module.exports = {
         ContactModel.findOne({ phone: req.body.phone }).select('password').exec(function(err, contact){
             if(err){return res.status(400).json({ error: err });}
             if(!contact){res.status(400).json({ error: 'contact not found' });}
-            const validPassword = contact.passwordVerification(req.body.password)            
+            const validPassword = contact.passwordVerification(req.body.password)    
             if(!validPassword){ res.status(400).json({ error: 'wrong password'});}
             const token = jwt.sign({
                 id: contact._id,
@@ -72,6 +73,7 @@ module.exports = {
 
     //deletes a specific contact from the database
     deleteContact: (req,res) => {
+        // console.log(req.decoded, 'this is the decoded request')
         ContactModel.deleteOne({ _id: req.params.id }, (err, contact) => {
             if(err){return res.status(400).json({ error: err });}
             if(!contact){ return res.status(400).json({ error: 'contact not found'});}

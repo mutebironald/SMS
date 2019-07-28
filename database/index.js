@@ -8,7 +8,7 @@ crypto.randomBytes(256, (err, buf) => {
 if(process.env.NODE_ENV === 'testing'){
     module.exports = {
         uri: process.env.TEST_DB_URI,
-        seccret: process.env.TEST_SECRET_KEY,
+        secret: process.env.TEST_SECRET_KEY,
         db: process.env.TEST_DB_NAME
     }
 }

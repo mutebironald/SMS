@@ -20,7 +20,6 @@ const database = require('./index');
  *  and error message when a connection is unsuccessful 
  */
 function configureDatabase() {
-    // console.log(database.uri, 'database  >>>>>>>>>>');
     mongoose.connect('mongodb://127.0.0.1/sms_api', {useNewUrlParser: true, useCreateIndex: true });
     // mongoose.connect(database.uri, {useNewUrlParser: true, useCreateIndex: true });
 
@@ -32,7 +31,6 @@ function configureDatabase() {
     db.on('error', 
         console.error.bind(console, 'MongoDb connection error')
     )
-    console.log('hello')
 }
 
 
