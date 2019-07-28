@@ -5,6 +5,11 @@
 ## run < brew services start mongodb-community@4.0 > to start mondgo-db
 ## (mogo guide)[https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/]
 
+##steps for running this API
+- [x] clone the repository
+- [x] cd to the SMSAPI directory
+- [x] setup the env to have a similar outlook to the .env.example
+- [x] setup mongodb
 
 This is an SMS management API built with Node, Express and MongoDB.
 
