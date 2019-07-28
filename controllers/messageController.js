@@ -42,7 +42,7 @@ module.exports = {
     },
 
 
-    //gets a message send by its id.
+    //gets a message sent by its id.
     getSentMessage: (req, res) => {
         MessageModel.findOne({ message_id: req.params.id , sender: req.decoded.contact_id})
         .populate('sender')
@@ -62,12 +62,13 @@ module.exports = {
             (err, message) => { 
                 if(err){ res.status(500).json({ error: err}) }
                 if(!message){ return response.status(404).json({ error: 'No message' })}  
-                return res.status(200).json({ message: 'The message is now deleted', message: message })
+                return res.status(200).json({ message: 'The message is now deleted'})
             });
     },
 
     //gets all received messages.
     getReceivedMessages: (req, res) => {
+        console.log('phone+++++++++++++++++++++', req.decoded.phone)
         MessageModel.find({ phone: req.decoded.phone})
         .populate('sender')
         .populate('receiver')
