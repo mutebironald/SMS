@@ -33,6 +33,7 @@ module.exports = {
         if(!req.body.name){ errors.name = 'A name is required';}
         if(!req.body.phone){ errors.phone = 'A phone is required';}
         if(!req.body.password){ errors.password = 'A password is required';} 
+        if(req.body.password.length !== 10){ errors.password = 'The password should have 10 characters'}
         if(Object.keys(errors).length>0){ return res.status(400).json({ errors });}
         try{
             var contact = new ContactModel(
