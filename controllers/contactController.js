@@ -74,7 +74,6 @@ module.exports = {
 
     //deletes a specific contact from the database
     deleteContact: (req,res) => {
-        // console.log(req.decoded, 'this is the decoded request')
         ContactModel.deleteOne({ _id: req.params.id }, (err, contact) => {
             if(err){return res.status(400).json({ error: err });}
             if(!contact){ return res.status(400).json({ error: 'contact not found'});}

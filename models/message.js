@@ -1,5 +1,6 @@
 //Deleting a contact removes the messages they sent and references to messages they received.
 var mongoose = require('mongoose');
+var uniqueValidator = require('mongoose-unique-validator');
 
 
 var Schema = mongoose.Schema;
@@ -12,5 +13,7 @@ var MessageModelSchema = new Schema({
 });
 
 MessageModelSchema.set('timestamps', true);
+
+MessageModelSchema.plugin(uniqueValidator)
 
 module.exports = mongoose.model('MessageModel', MessageModelSchema);
