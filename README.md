@@ -77,7 +77,7 @@ It models the following abstractions
 
 ```
 - Application/json
-<!-- - token-x -->
+<!-- Authorization  -->
 ```
 
 #### Contact

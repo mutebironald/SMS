@@ -1,10 +1,17 @@
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const { ObjectId } = Schema;
 const Bcrypt = require('bcryptjs');
 var uniqueValidator = require('mongoose-unique-validator');
 
+
+
+
+
+// mongoose.plugin(require('../utils/diff-plugin'))
+// mongoose.plugin(require('../utils/diff-plugin'))
+
 const MessageModel = require('./message');
-
-
 
 
 var checkNameLength = (name) => {
@@ -25,9 +32,9 @@ var nameValidate = [
 ]
 
 
-var ContactModelSchema = mongoose.Schema({
-    contact_id: mongoose.Schema.Types.ObjectId,
-    name: { type: String, required: true, validate: nameValidate },
+var ContactModelSchema = Schema({
+    _id: { type: ObjectId },
+    name: { type: String, required: true, validate: nameValidate, unique: true },
     phone: { type: Number, required: true, unique: true },
     password: { type: String, required: true },
 

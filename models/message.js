@@ -1,18 +1,22 @@
 //Deleting a contact removes the messages they sent and references to messages they received.
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const { ObjectId } = Schema;
+
 var uniqueValidator = require('mongoose-unique-validator');
 
 
-var Schema = mongoose.Schema;
 
 var MessageModelSchema = new Schema({
-    sender: { type: mongoose.Schema.Types.ObjectId, ref: 'ContactModel'},
-    receiver: {type: mongoose.Schema.Types.ObjectId, ref: 'ContactModel'},
+    sender: { type: ObjectId, ref: 'ContactModel'},
+    receiver: { type: ObjectId, ref: 'ContactModel'},
     body: { type: String, required: true },
     status: { type: String, enum: ['sent', 'Draft', 'received' ], default: 'sent' },
-});
+},{
+    timestamps: { createdAt: true, updatedAt: false }
+}
+);
 
-MessageModelSchema.set('timestamps', true);
 
 MessageModelSchema.plugin(uniqueValidator)
 

@@ -44,19 +44,16 @@ app.use('/api/v1/contacts', contactRouter);
 
 app.use((req, res, next) => {
     // const token = req.headers.authorization.split(' ')[1];
-    const token = req.headers['token-x'];
-    // console.log(token, 'where is our token')
+    const token = req.headers['authorization'];
     if(!token){
         res.status(400).json({error: 'You are not authorized'})
     }
-    console.log(config.secret, 'secrecy is essential')
     jwt.verify(token, config.secret, (err, decoded) => {
         if(err){
             console.log(err, 'error');
             res.status(400).json({ error: 'Invalid token'})
         }
         req.decoded = decoded;
-        // console.log('decoded value', req.decoded);
         next();
     });
 });

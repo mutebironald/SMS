@@ -1,7 +1,12 @@
-const ContactModel = require('../models/contact') ;
+var mongoose = require('mongoose');
 const config = require('../database');
 const jwt = require('jsonwebtoken');
 const Bcrypt = require('bcryptjs');
+
+const ContactModel = require('../models/contact') ;
+
+
+
 
 
 module.exports = {
@@ -17,13 +22,17 @@ module.exports = {
     // @param {id}
     getSpecificContact: (req, res) => {
         try{
+            if(mongoose.Types.ObjectId.isValid(req.params.id))
             ContactModel.findById({ _id: req.params.id }, (err, contact) => {
                 if(err){return res.status(400).json({ error: err });}
                 if(!contact){ return res.status(400).json({error: 'Cannot find the contact specified'});}
                 res.status(200).json({ contact });
             });
+            else{
+                return res.status(404).json({ error: 'The id specified appears faulty'})
+            }
         } catch(error){
-            res.status(400).json({ error: err });
+            res.status(400).json({ error: error });
         }
     },
 
@@ -52,7 +61,6 @@ module.exports = {
     //login with your phone and password
     //it enables you send messages.
     login: (req, res) => {
-        console.log(req.body,'the point of the request source')
         let errors = { };
         if(!req.body.phone){ errors.phone = 'A phone number is required';}
         if(!req.body.password){ errors.password = 'A password is required';}
