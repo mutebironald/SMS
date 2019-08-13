@@ -1,8 +1,3 @@
-//Please include a writeup explaining why you chose that data store & framework.
-
-//ease of use, support by the community,  learning curve, performance, ease of replication/backup , 
-
-
 var mongoose =  require('mongoose');
 
 // var mongoDB = 'mongodb://127.0.0.1/sms_api';
@@ -21,8 +16,6 @@ const database = require('./index');
  */
 function configureDatabase() {
     mongoose.connect('mongodb://127.0.0.1/sms_api', {useNewUrlParser: true, useCreateIndex: true });
-    // mongoose.connect(database.uri, {useNewUrlParser: true, useCreateIndex: true });
-
     db = mongoose.connection;
     db.on('connection', function(){
         console.log('Your connection to smsAPi is now active');

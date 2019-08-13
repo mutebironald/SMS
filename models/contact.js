@@ -5,15 +5,6 @@ const Bcrypt = require('bcryptjs');
 var uniqueValidator = require('mongoose-unique-validator');
 
 
-
-
-
-// mongoose.plugin(require('../utils/diff-plugin'))
-// mongoose.plugin(require('../utils/diff-plugin'))
-
-const MessageModel = require('./message');
-
-
 var checkNameLength = (name) => {
     if(!name){return false}
     if(name.length<2|| name.length>17){return false}
@@ -33,7 +24,6 @@ var nameValidate = [
 
 
 var ContactModelSchema = Schema({
-    // _id: { type: ObjectId },
     name: { type: String, required: true, validate: nameValidate, unique: true },
     phone: { type: Number, required: true, unique: true },
     password: { type: String, required: true },
