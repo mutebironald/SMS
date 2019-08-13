@@ -14,7 +14,7 @@ module.exports = {
 
         ContactModel.findOne({phone: req.body.receiver}, (err, receiver) => {
             if(err){ return res.status(400).json({ error: err})}
-            if(!receiver){ return res.status(400).json({ error: 'Cannot find the phone number specified' })}
+            if(!receiver){ return res.status(400).json({ error: 'Cannot find the phone number specified. The contact should exist in the database first.' })}
             if( receiver._id === req.decoded.id){ return res.status(404).json({error: 'Woah!!! It seems you are attempting to send a message to yourself'})}
             const message = new MessageModel({
                 sender: req.decoded.id,

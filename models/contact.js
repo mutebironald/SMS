@@ -33,7 +33,7 @@ var nameValidate = [
 
 
 var ContactModelSchema = Schema({
-    _id: { type: ObjectId },
+    // _id: { type: ObjectId },
     name: { type: String, required: true, validate: nameValidate, unique: true },
     phone: { type: Number, required: true, unique: true },
     password: { type: String, required: true },
