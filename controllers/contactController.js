@@ -70,7 +70,7 @@ module.exports = {
             if(err){return res.status(400).json({ error: err });}
             if(!contact){res.status(400).json({ error: 'contact not found' });}
             const validPassword = contact.passwordVerification(req.body.password)    
-            if(!validPassword){ res.status(400).json({ error: 'wrong password'});}
+            if(!validPassword){ return res.status(400).json({ error: 'wrong password'});}
             const token = jwt.sign({
                 id: contact._id,
                 phone: req.body.phone,
